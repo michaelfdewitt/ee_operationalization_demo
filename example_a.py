@@ -26,7 +26,7 @@ def handle_event(event, context):
     # Note that we don't actually care about the message here.
     credentials, project_id = google.auth.default();
     print(project_id)
-    ee.Initialize(credentials, project='personal-earthengine');
+    ee.Initialize(credentials, project=project_id);
     export_composite(project_id)
     
 def export_composite(project_id):

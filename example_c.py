@@ -26,10 +26,10 @@ def handle_event(event, context):
     """
     # Note that we don't actually care about the message here.
     credentials, project_id = google.auth.default();
-    ee.Initialize(credentials, project='personal-earthengine');
-    log_redness()
+    ee.Initialize(credentials, project=project_id);
+    log_redness(project_id)
 
-def log_redness():
+def log_redness(project_id):
   # Fetch the current time.
   epoch = int(time.time_ns() / 1_000_000)
   now = ee.Date(epoch)
@@ -48,7 +48,7 @@ def log_redness():
   if numImages > 1:
     raise Exception("Too many images")
 
-  fc = ee.FeatureCollection('projects/personal-earthengine/assets/features')
+  fc = ee.FeatureCollection(f"projects/{project_id}/assets/features")
   
   reduced = goes.first().reduceRegions(fc, ee.Reducer.mean(), 250)
   reducedList = reduced.toList(10).map(lambda e : {
