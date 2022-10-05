@@ -1,0 +1,3 @@
+# Function dependencies, for example:
+# package>=version
+earthengine-api>=0.1.325
